@@ -1,46 +1,153 @@
 import React,{Component} from "react"
 import AirportGuide from "./comp/AirportGuide"
 import axios from 'axios'
+import Autosuggest from 'react-autosuggest';
+
+import {products} from './data/airports';
+
+// Teach Autosuggest how to calculate suggestions for any given input value.
+const getSuggestions = value => {
+  const inputValue = value.trim().toLowerCase();
+  const inputLength = inputValue.length;
+
+  return inputLength === 0 ? [] : products.filter(lang =>
+    lang.airportname.toLowerCase().slice(0, inputLength) === inputValue ||
+    lang.city.toLowerCase().slice(0, inputLength) === inputValue ||
+    lang.state.toLowerCase().slice(0, inputLength) === inputValue ||
+    lang.airportcode.toLowerCase().slice(0, inputLength) === inputValue
+  );
+};
+
+// When suggestion is clicked, Autosuggest needs to populate the input
+// based on the clicked suggestion. Teach Autosuggest how to calculate the
+// input value for every given suggestion.
+const getSuggestionValue = suggestion => (
+  `${suggestion.city}, ${suggestion.state} (${suggestion.airportcode} - ${suggestion.airportname})`
+);
+
+// Use your imagination to render suggestions.
+const renderSuggestion = suggestion => (
+  <div>
+    {`${suggestion.city}, ${suggestion.state} (${suggestion.airportcode} - ${suggestion.airportname})`}
+  </div>
+);
+    // Yakima, Washington (YKM - Yakima Air Terminal)
 
 class App extends Component{
     constructor(props){
         super(props)
         this.state = {
-            myairports: []
-        }
+            single_airport: [],
+            value: '',
+            suggestions: []
+        };
+
     }
 
-    componentDidMount(){
-      // fetch('https://sitecore2-cd-test-site-westcentralus.azurewebsites.net/api/v1/Airports/GetAllAirports')
-      // .then(response => response.json())
-      // .then(response => {
-      //     this.setState({
-      //         data: response.airports
-      //     }, () => console.log(this.state.data))
-      // })
 
-      axios.get('https://sitecore2-cd-test-site-westcentralus.azurewebsites.net/api/v1/Airports/GetAllAirports')
+
+    onChange = (event, { newValue }) => {
+      this.setState({
+        value: newValue
+      });
+    };
+
+    // Autosuggest will call this function every time you need to update suggestions.
+    // You already implemented this logic above, so just use it.
+    onSuggestionsFetchRequested = ({ value }) => {
+      this.setState({
+        suggestions: getSuggestions(value)
+      });
+    };
+
+    // Autosuggest will call this function every time you need to clear suggestions.
+    onSuggestionsClearRequested = () => {
+      this.setState({
+        suggestions: []
+      });
+    };
+
+
+
+
+
+    componentDidMount(){
+
+      let mypath = window.location.href;
+      let airportnamefromurl = mypath.substring(mypath.lastIndexOf('/') + 1);
+      airportnamefromurl = airportnamefromurl.replace(/-/g, ' ');
+
+      axios.get('https://sitecore2-cd-test-site-westcentralus.azurewebsites.net/api/v1/Airports/GetAllAirports?airportname='+airportnamefromurl)
       .then(res => {
         const mydata = res.data.airports;
+
+        // const tempdata = mydata.map((item) => {
+        //     if(item.airportcode !== "$name"){
+        //       return {
+        //         name: item.airportname,
+        //         value: `${item.city} ${item.state} (${item.airportcode} - ${item.airportname})`,
+        //         code: item.airportcode,
+        //         city: item.city,
+        //         state: item.state
+        //       }
+        //     }
+        // })
+
+        // Yakima, Washington (YKM - Yakima Air Terminal)
+
+
         this.setState({
-            myairports: mydata
-        }, () => console.log(this.state.myairports))
+            single_airport: mydata
+        }, () => console.log(this.state.single_airport))
+
       })
       .catch(function (error) {
         console.log(error);
       });
 
+
+
     }
 
 
+
+
+  navigateToPage = (url) => {
+    console.log(url);
+  }
+
+
+
+
     render(){
+
+        // const product = products[1]
+        // console.log(product);
+
+        const { value, suggestions } = this.state;
+
+        // Autosuggest will pass through all these props to the input.
+        const inputProps = {
+          placeholder: 'Search for airports...',
+          value,
+          onChange: this.onChange
+        };
 
 
         return (
             <div>
 
+            <Autosuggest
+              suggestions={suggestions}
+              onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+              getSuggestionValue={getSuggestionValue}
+              renderSuggestion={renderSuggestion}
+              inputProps={inputProps}
+            />
+
             <ul>
-            {
+            {/*
               this.state.myairports.map((airport) => {
                 if(airport.airportcode !== '$name'){
                   return(
@@ -49,7 +156,7 @@ class App extends Component{
                 }
 
               })
-            }
+            */}
             </ul>
 
 
