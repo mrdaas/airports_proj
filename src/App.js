@@ -1,7 +1,10 @@
 import React,{Component} from "react"
-import AirportGuide from "./comp/AirportGuide"
+
 import axios from 'axios'
 import Autosuggest from 'react-autosuggest';
+
+import AirportGuide from "./component/AirportGuide"
+
 
 import {products} from './data/airports';
 
@@ -35,7 +38,7 @@ const renderSuggestion = suggestion => (
 
 class App extends Component{
     constructor(props){
-        super(props)
+        super(props);
         this.state = {
             single_airport: [],
             value: '',
@@ -84,21 +87,14 @@ class App extends Component{
         // const tempdata = mydata.map((item) => {
         //     if(item.airportcode !== "$name"){
         //       return {
-        //         name: item.airportname,
-        //         value: `${item.city} ${item.state} (${item.airportcode} - ${item.airportname})`,
-        //         code: item.airportcode,
-        //         city: item.city,
-        //         state: item.state
+        //         ...item
         //       }
         //     }
         // })
 
-        // Yakima, Washington (YKM - Yakima Air Terminal)
-
-
         this.setState({
             single_airport: mydata
-        }, () => console.log(this.state.single_airport))
+        },() => console.log(this.state.single_airport))
 
       })
       .catch(function (error) {
@@ -136,36 +132,32 @@ class App extends Component{
 
         return (
             <div>
+            <div className="container">
 
-            <Autosuggest
-              suggestions={suggestions}
-              onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-              getSuggestionValue={getSuggestionValue}
-              renderSuggestion={renderSuggestion}
-              inputProps={inputProps}
-            />
-
-            <ul>
-            {/*
-              this.state.myairports.map((airport) => {
-                if(airport.airportcode !== '$name'){
-                  return(
-                    <li key={airport.airportcode}>{airport.airportcode}</li>
-                  )
-                }
-
-              })
-            */}
-            </ul>
+              <Autosuggest
+                suggestions={suggestions}
+                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                getSuggestionValue={getSuggestionValue}
+                renderSuggestion={renderSuggestion}
+                inputProps={inputProps}
+              />
 
 
-                    <AirportGuide />
-                {/* {this.state.data.map(item => {
-                        return (
-                            <AirportGuide myitems = {item} />
-                        )
-                    })} */}
+              {
+                this.state.single_airport.map((airport) => {
+                  if(airport.airportcode !== '$name'){
+                    return(
+                      <AirportGuide myairport={airport} />
+                    )
+                  }
+
+                })
+              }
+
+
+
+              </div>
 
 
             </div>
