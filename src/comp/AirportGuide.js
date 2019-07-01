@@ -9,7 +9,7 @@ function AirportGuide (props){
                 <div className="container">
                             <div className="row">
                                 <div className="col-md-12">
-                                <h1 className="airportname-data"></h1>
+                                <h1 className="airportname-data">This is a test</h1>
                                 </div>
                             </div>
                             <div className="row">
