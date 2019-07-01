@@ -41,7 +41,7 @@ function AirportGuide (props){
                                     <p> Please see our <a href="/content/travel-info/at-the-airport/airport-boarding-times"><strong>check-in and boarding cut-off times</strong></a> for more information.</p>
                                 </div>
                             </div>
-                            <div classname="row">
+                            <div className="row">
                                 <div className="col-md-12">
                                     <p className="additionalnotes-data"></p>
                                 </div>
@@ -67,7 +67,7 @@ function AirportGuide (props){
                                     <div className="row" id="buttons-layer">
                                         <div className="col-sm-3"><a href="#" className="btn btn-ghost-blue form-control">Lounge Info </a></div>
                                         <div className="col-sm-3"><a href="#" className="btn btn-ghost-blue form-control">Cargo Info </a></div>
-                                    </div>    
+                                    </div>
                                 </div>
                             <div className="row">
                                 <div id="additional-info-layer" className="col-md-12 add-divider">
@@ -98,7 +98,7 @@ function AirportGuide (props){
                                             <a className="btn-link btn-block" href="https://m.alaskaair.com/checkin" target="_self"><strong>Check in from your mobile device</strong></a></p>
                                         </div>
                                     </div>
-                                    
+
                                     <div className="row">
                                         <div className="col-md-6">
                                             <br/>
@@ -117,27 +117,20 @@ function AirportGuide (props){
                                             <br/>
                                             <h5>Ticket counter check-in</h5>
                                             <p>If you are traveling with a paper ticket, or just need some extra help with the check-in process on the date of departure our customer service agents are always available to help get you going with an in-person check-in.  Please note that checked baggage is only accepted within 4 hours of your scheduled departure.</p>
-                                        </div>   
+                                        </div>
                                     </div>
                                 </div>
-                                </div>    
+                                </div>
                             </div>
                         </div>
             </div>
-        
+
         )
 
     }
-    
-    
+
+
 
 
 
 export default AirportGuide;
-
-
-
-
-
-
-
