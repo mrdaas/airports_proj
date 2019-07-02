@@ -20,53 +20,73 @@ function AirportGuide (props){
         return (
 
                 <div className="container">
-                    <div className="row">
-                      <AirportName airport={props.myairport}/>
-                    </div>
-                    <div className="row">
-                      <AirportAlert airport={props.myairport}/>
+                    {/* NAME */}
+                    <div className="row" style={{marginBottom:15,borderBottom:'1px solid #ccc'}}>
+                      <div className="col-md-12">
+                        <AirportName airport={props.myairport}/>
+                      </div>
                     </div>
 
+                    {/* ALERT */}
                     <div className="row">
-                      <div className="col-md-6 add-divider">
+                      <div className="col-md-12">
+                        <AirportAlert airport={props.myairport}/>
+                      </div>
+                    </div>
+
+                    {/* AIRPORT AND GATE LOCATION */}
+                    <div className="row">
+                      <div className="col-md-6">
                           <AirportLocation airport={props.myairport} />
                       </div>
-                      <div className="col-md-6 add-divider">
+                      <div className="col-md-6">
                           <GateLocation airport={props.myairport} />
                       </div>
                     </div>
 
+                    {/* TICKET COUNTER HOURS AND WHEN TO ARRIVE */}
                     <div className="row">
-                      <div className="col-md-6 add-divider">
+                      <div className="col-md-6">
                           <TicketCounterHours airport={props.myairport} />
                       </div>
-                      <div className="col-md-6 add-divider">
+                      <div className="col-md-6">
                           <WhenToArrive airport={props.myairport} />
                       </div>
                     </div>
 
-
+                    {/* SERVICES */}
                     <div className="row">
-                      <Services airport={props.myairport}/>
+                      <div className="col-md-12">
+                        <Services airport={props.myairport}/>
+                      </div>
                     </div>
 
-
+                    {/* ACCESSIBILITY */}
                     <div className="row">
-                      <Accessibility airport={props.myairport}/>
+                      <div className="col-md-12">
+                        <Accessibility airport={props.myairport}/>
+                      </div>
                     </div>
 
+                    {/* CHECK IN KIOSKS */}
                     <div className="row">
-                      <CheckInKiosks airport={props.myairport} />
+                      <div className="col-md-12">
+                        <CheckInKiosks airport={props.myairport} />
+                      </div>
                     </div>
 
-
+                    {/* ADDITIONAL NOTES */}
                     <div className="row">
-                      <AdditionalNotes airport={props.myairport} />
+                      <div className="col-md-12">
+                        <AdditionalNotes airport={props.myairport} />
+                      </div>
                     </div>
 
-
+                    {/* CHECK IN OPTIONS */}
                     <div className="row">
-                      <CheckInOptions airport={props.myairport} />
+                      <div className="col-md-12">
+                        <CheckInOptions airport={props.myairport} />
+                      </div>
                     </div>
 
                 </div>

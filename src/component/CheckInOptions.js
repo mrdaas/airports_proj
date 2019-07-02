@@ -3,7 +3,7 @@ import React from "react"
 function CheckInOptions (props){
     return (
 
-        <div className="col-md-12 add-divider">
+        <div className="add-divider">
             <h4>Check-in options</h4>
             <div className="row">
                 <div className="col-md-6">
