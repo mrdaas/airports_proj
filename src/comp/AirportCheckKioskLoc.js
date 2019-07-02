@@ -6,7 +6,7 @@ function AirportCheckKioskLoc (props){
             <div className="row">
                 <div id="kiosk-location-row" className="col-md-12 add-divider">
                     <h4>Airport check-in kiosk locations</h4>
-                    <p className="kiosklocation-data"></p>
+                    <p className="kiosklocation-data">{airport.airportkiosklocation}</p>
                 </div>
             </div>
         )

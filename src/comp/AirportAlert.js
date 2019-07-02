@@ -5,7 +5,7 @@ function AirportAlert (props){
         return (
             <div className="row">
                 <div className="col-md-12 alert alert-warning" id="alert-div">
-                    <p className="alert-data"></p>
+                    <p className="alert-data">{airport.alerts}</p>
                 </div>
             </div>                   
         )
