@@ -3,7 +3,7 @@ import renderHTML from 'react-render-html'
 
 function TicketCounterHours (props){
     return (
-        <div>
+        <div className="add-divider">
             <h4>Ticket counter hours</h4>
             <p className="ticket-counter-data">{renderHTML(props.airport.ticketcounterhours)}</p>
         </div>
