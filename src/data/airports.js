@@ -1,4 +1,4 @@
-export const products  = [
+export const airports  = [
 {
 airportname: "glacier park international",
 city: "kalispell",
@@ -686,5 +686,5 @@ state: "california",
 ]
 
 export default {
-    products,
+    airports,
 }
