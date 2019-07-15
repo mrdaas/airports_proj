@@ -29,6 +29,15 @@ export function makeAllCaps(str){
 }
 
 
+export function replaceDashWithSpace(str){
+    return str.replace(/-/g," ");
+}
+
+export function replaceSpaceWithDashes(str){
+    return str.replace(/\s+/g, '-');
+}
+
+
 
 export function seattleGateLocations(str){
 
