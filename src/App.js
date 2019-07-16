@@ -5,7 +5,7 @@ import Autosuggest from 'react-autosuggest';
 
 import AirportGuide from "./component/AirportGuide"
 
-import { makeTitleCase, makeAllCaps, replaceSpaceWithDashes} from './helper/Helper';
+import { makeTitleCase, makeAllCaps, replaceSpaceWithDashes, getState, getCity, getCode, getAirportName} from './helper/Helper';
 
 import {airports} from './data/airports';
 
@@ -43,7 +43,8 @@ class App extends Component{
         this.state = {
             single_airport: [],
             value: '',
-            suggestions: []
+            suggestions: [],
+            mylink:'/content/airports'
         };
 
     }
@@ -51,9 +52,19 @@ class App extends Component{
 
 
     onChange = (event, { newValue }) => {
+
+      let city = getCity(newValue)
+      let state = getState(newValue)
+      let code = getCode(newValue)
+      let name = getAirportName(newValue)
+
+      let temp_link = `/content/airports/${replaceSpaceWithDashes(state).toLowerCase()}/${replaceSpaceWithDashes(city).toLowerCase()}/${replaceSpaceWithDashes(name).toLowerCase()}?lid=travel:info-AirportsGuides-${replaceSpaceWithDashes(makeTitleCase(city))}&int=_AS_TRAVINFO_-prodID:AirportsGuides-${replaceSpaceWithDashes(makeTitleCase(city))}`;
+
       this.setState({
-        value: newValue
+        value: newValue,
+        mylink: temp_link
       });
+
     };
 
     // Autosuggest will call this function every time you need to update suggestions.
@@ -73,13 +84,14 @@ class App extends Component{
 
 
     onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) =>{
-         //Here you do whatever you want with the values
-         // /airports/alaska/fairbanks/fairbanks-international?lid=travel:info-AirportsGuides-Fairbanks&int=_AS_TRAVINFO_-prodID:AirportsGuides-Fairbanks
-         console.log(suggestion.airportname); //For example alert the selected value
+       console.log(suggestion.airportname); //For example alert the selected value
+       let temp_link = `/content/airports/${replaceSpaceWithDashes(suggestion.state)}/${replaceSpaceWithDashes(suggestion.city)}/${replaceSpaceWithDashes(suggestion.airportname)}?lid=travel:info-AirportsGuides-${replaceSpaceWithDashes(makeTitleCase(suggestion.city))}&int=_AS_TRAVINFO_-prodID:AirportsGuides-${replaceSpaceWithDashes(makeTitleCase(suggestion.city))}`;
+       // window.location.assign(`https://preview.alaskaair.com/content/airports/${suggestion.state}/${suggestion.city}/${replaceSpaceWithDashes(suggestion.airportname)}?lid=travel:info-AirportsGuides-${makeTitleCase(suggestion.city)}&int=_AS_TRAVINFO_-prodID:AirportsGuides-${makeTitleCase(suggestion.city)}`);
+       this.setState({
+         mylink: temp_link
+       });
 
-         // window.location.assign(`https://preview.alaskaair.com/content/airports/${suggestion.state}/${suggestion.city}/${replaceSpaceWithDashes(suggestion.airportname)}?lid=travel:info-AirportsGuides-${makeTitleCase(suggestion.city)}&int=_AS_TRAVINFO_-prodID:AirportsGuides-${makeTitleCase(suggestion.city)}`);
-         window.location.assign(`http://localhost:3000/${replaceSpaceWithDashes(suggestion.airportname)}?lid=travel:info-AirportsGuides-${replaceSpaceWithDashes(makeTitleCase(suggestion.city))}&int=_AS_TRAVINFO_-prodID:AirportsGuides-${replaceSpaceWithDashes(makeTitleCase(suggestion.city))}`);
-     };
+   };
 
 
 
@@ -126,13 +138,6 @@ class App extends Component{
 
 
 
-  navigateToPage = (url) => {
-    console.log(url);
-  }
-
-
-
-
     render(){
 
         // const airport = airports[1]
@@ -144,23 +149,47 @@ class App extends Component{
         const inputProps = {
           placeholder: 'Search for airports...',
           value,
-          onChange: this.onChange
+          onChange: this.onChange,
+          onKeyDown: (event, value) => {
+            if (event.keyCode === 13 /* enter */ && !value /* or whatever variable you store the input content in */) {
+              // Handle your onEnter logic
+               window.location.assign(this.state.mylink)
+              //alert(value)
+            }
+          }
         };
 
 
         return (
             <div>
-            <div className="container">
+                <div className="airport-search">
 
-              <Autosuggest
-                suggestions={suggestions}
-                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                getSuggestionValue={getSuggestionValue}
-                renderSuggestion={renderSuggestion}
-                onSuggestionSelected={this.onSuggestionSelected}
-                inputProps={inputProps}
-              />
+                <div className="row">
+                  <div className="col-sm-8">
+                    <div className="input-and-button">
+                      <label for="search-airport" className="sr-only">Search airport:</label>
+
+                      <Autosuggest
+                        suggestions={suggestions}
+                        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                        getSuggestionValue={getSuggestionValue}
+                        renderSuggestion={renderSuggestion}
+                        onSuggestionSelected={this.onSuggestionSelected}
+                        inputProps={inputProps}
+                        className="form-control ui-autocomplete-input"
+                        id="search-airport"
+                      />
+                    </div>
+                  </div>
+                  <div className="col-sm-4">
+                    <div className="input-and-button">
+                      <a href={this.state.mylink} id="selectAirportBtn" className="btn btn-ghost-blue form-control">Select Airport</a>
+                    </div>
+                  </div>
+                </div>
+
+
 
 
               {

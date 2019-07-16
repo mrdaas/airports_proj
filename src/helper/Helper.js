@@ -1,3 +1,32 @@
+export function getAirportName(str){
+  let airportname = str.substring(str.indexOf("-")+1, str.indexOf(")"))
+  airportname = airportname.trim();
+  return airportname;
+}
+
+export function getCode(str){
+  let code = str.substring(str.indexOf("(")+1, str.indexOf("-")-1)
+  code = code.trim();
+  return code;
+}
+
+
+export function getState(str){
+  let state = str.substring(str.indexOf(",")+1, str.indexOf("(")-1)
+  state = state.trim();
+  return state;
+}
+
+
+export function getCity(str){
+  let city = str.substring(0, str.indexOf(","))
+  city = city.trim();
+  return city;
+}
+
+
+
+
 
 export function convertMinutesToHours(minutes){
   if(minutes >= 60){
@@ -30,11 +59,19 @@ export function makeAllCaps(str){
 
 
 export function replaceDashWithSpace(str){
+  if(str.includes("-")){
     return str.replace(/-/g," ");
+  }else{
+    return str;
+  }
 }
 
 export function replaceSpaceWithDashes(str){
-    return str.replace(/\s+/g, '-');
+   if(str.includes(" ")){
+     return str.replace(/\s+/g, '-');
+   }else{
+     return str;
+   }
 }
 
 

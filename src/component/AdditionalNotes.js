@@ -1,9 +1,10 @@
 import React from "react"
+import renderHTML from "react-render-html"
 
 function AdditionalNotes (props){
     return (
-        <div className="col-md-12">
-            <p className="additionalnotes-data">{props.airport.additionalnotes}</p>
+        <div className="">
+            <p className="additionalnotes-data">{renderHTML(props.airport.additionalnotes)}</p>
         </div>
     )
 }
