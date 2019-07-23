@@ -8,6 +8,7 @@ import WhenToArrive from "./WhenToArrive"
 import AdditionalNotes from "./AdditionalNotes"
 import Services from "./Services"
 import Accessibility from "./Accessibility"
+import AirportGeneralAdvisories from "./AirportGeneralAdvisories"
 
 
 import CheckInKiosks from "./CheckInKiosks"
@@ -31,6 +32,13 @@ function AirportGuide (props){
                     <div className="row">
                       <div className="col-md-12">
                         <AirportAlert airport={props.myairport}/>
+                      </div>
+                    </div>
+
+                    {/* AIRPORT GENERAL ADVISORY */}
+                    <div className="row">
+                      <div className="col-md-12">
+                        <AirportGeneralAdvisories airport={props.myairport} />
                       </div>
                     </div>
 
@@ -81,6 +89,8 @@ function AirportGuide (props){
                         <AdditionalNotes airport={props.myairport} />
                       </div>
                     </div>
+
+                     
 
                     {/* CHECK IN OPTIONS */}
                     <div className="row">
