@@ -79,7 +79,7 @@ export function replaceSpaceWithDashes(str){
 export function seattleGateLocations(str){
 
    var index_of_horizon = str.indexOf('Horizon:')
-   var index_of_as_horizon = str.indexOf('Alaska and Horizon')
+   // var index_of_as_horizon = str.indexOf('Alaska and Horizon')
 
     var first_line = str.substr(0, index_of_horizon);
     var second_line = str.substr(index_of_horizon, 47);

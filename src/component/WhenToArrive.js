@@ -1,5 +1,5 @@
 import React from "react"
-import { convertMinutesToHours, makeTitleCase} from '../helper/Helper';
+import { convertMinutesToHours } from '../helper/Helper';
 
 function WhenToArrive (props){
     return (

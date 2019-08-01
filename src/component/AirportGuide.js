@@ -8,6 +8,7 @@ import WhenToArrive from "./WhenToArrive"
 import AdditionalNotes from "./AdditionalNotes"
 import Services from "./Services"
 import Accessibility from "./Accessibility"
+import CustomTwo from "./CustomTwo"
 
 
 import CheckInKiosks from "./CheckInKiosks"
@@ -15,13 +16,12 @@ import CheckInOptions from "./CheckInOptions"
 
 
 function AirportGuide (props){
-  console.log(props.myairport)
 
         return (
 
                 <div className="row container rendered-data">
                     {/* NAME */}
-                    <div className="row" style={{marginBottom:15}}>
+                    <div className="row">
                       <div className="col-md-12">
                         <AirportName airport={props.myairport}/>
                       </div>
@@ -34,6 +34,14 @@ function AirportGuide (props){
                       </div>
                     </div>
 
+                    {/* CUSTOM 2 */}
+                    <div className="row">
+                      <div className="col-md-12 margin-bottom">
+                        <CustomTwo airport={props.myairport}/>
+                      </div>
+                    </div>
+
+
                     {/* AIRPORT AND GATE LOCATION */}
                     <div className="row">
                       <div className="col-md-6 margin-bottom">
@@ -43,6 +51,7 @@ function AirportGuide (props){
                           <GateLocation airport={props.myairport} />
                       </div>
                     </div>
+
 
                     {/* TICKET COUNTER HOURS AND WHEN TO ARRIVE */}
                     <div className="row">

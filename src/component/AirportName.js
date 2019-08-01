@@ -1,5 +1,5 @@
-import React,{Component} from "react"
-import { convertMinutesToHours, makeTitleCase, makeAllCaps} from '../helper/Helper';
+import React from "react"
+import { makeTitleCase, makeAllCaps} from '../helper/Helper';
 
 function AirportName (props){
     return (

@@ -1,6 +1,6 @@
 import React from "react"
 import renderHTML from 'react-render-html'
-import { convertMinutesToHours, makeTitleCase, seattleGateLocations} from '../helper/Helper';
+import { seattleGateLocations} from '../helper/Helper';
 
 
 function GateLocation (props){
@@ -14,7 +14,7 @@ function GateLocation (props){
                   {
                     props.airport.airportcode === 'sea' ? (
                       <div className="add-divider">
-                        <p className="gate-locations-data">{renderHTML(seattleGateLocations(props.airport.gatelocations))}</p>
+                        {renderHTML(seattleGateLocations(props.airport.gatelocations))}
                       </div>
                     ) : (
                       <div className="add-divider">

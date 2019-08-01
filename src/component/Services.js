@@ -1,5 +1,5 @@
 import React from "react"
-import { makeTitleCase, makeAllCaps, replaceSpaceWithDashes} from '../helper/Helper';
+import { replaceSpaceWithDashes} from '../helper/Helper';
 
 
 function Services (props){

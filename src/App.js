@@ -2,10 +2,11 @@ import React,{Component} from "react"
 import './App.css'
 import axios from 'axios'
 import Autosuggest from 'react-autosuggest';
-
 import AirportGuide from "./component/AirportGuide"
 
-import { makeTitleCase, makeAllCaps, replaceSpaceWithDashes, getState, getCity, getCode, getAirportName} from './helper/Helper';
+
+
+import { makeTitleCase, makeAllCaps, replaceSpaceWithDashes, getState, getCity, getAirportName} from './helper/Helper';
 
 import {airports} from './data/airports';
 
@@ -35,7 +36,7 @@ const renderSuggestion = suggestion => (
     {`${makeTitleCase(suggestion.city)}, ${makeTitleCase(suggestion.state)} (${makeAllCaps(suggestion.airportcode)} - ${makeTitleCase(suggestion.airportname)})`}
   </div>
 );
-    // Yakima, Washington (YKM - Yakima Air Terminal)
+
 
 class App extends Component{
     constructor(props){
@@ -44,7 +45,8 @@ class App extends Component{
             single_airport: [],
             value: '',
             suggestions: [],
-            mylink:'/content/airports'
+            mylink:'/content/airports',
+            loading:true
         };
 
     }
@@ -55,7 +57,7 @@ class App extends Component{
 
       let city = getCity(newValue)
       let state = getState(newValue)
-      let code = getCode(newValue)
+      // let code = getCode(newValue)
       let name = getAirportName(newValue)
 
       let temp_link = `/content/airports/${replaceSpaceWithDashes(state).toLowerCase()}/${replaceSpaceWithDashes(city).toLowerCase()}/${replaceSpaceWithDashes(name).toLowerCase()}?lid=travel:info-AirportsGuides-${replaceSpaceWithDashes(makeTitleCase(city))}&int=_AS_TRAVINFO_-prodID:AirportsGuides-${replaceSpaceWithDashes(makeTitleCase(city))}`;
@@ -84,7 +86,7 @@ class App extends Component{
 
 
     onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) =>{
-       console.log(suggestion.airportname); //For example alert the selected value
+       // console.log(suggestion.airportname); //For example alert the selected value
        let temp_link = `/content/airports/${replaceSpaceWithDashes(suggestion.state)}/${replaceSpaceWithDashes(suggestion.city)}/${replaceSpaceWithDashes(suggestion.airportname)}?lid=travel:info-AirportsGuides-${replaceSpaceWithDashes(makeTitleCase(suggestion.city))}&int=_AS_TRAVINFO_-prodID:AirportsGuides-${replaceSpaceWithDashes(makeTitleCase(suggestion.city))}`;
        // window.location.assign(`https://preview.alaskaair.com/content/airports/${suggestion.state}/${suggestion.city}/${replaceSpaceWithDashes(suggestion.airportname)}?lid=travel:info-AirportsGuides-${makeTitleCase(suggestion.city)}&int=_AS_TRAVINFO_-prodID:AirportsGuides-${makeTitleCase(suggestion.city)}`);
        this.setState({
@@ -105,12 +107,13 @@ class App extends Component{
         airportnamefromurl = airportnamefromurl.substring(0, airportnamefromurl.indexOf("?"));
       }
 
-      console.log(airportnamefromurl)
+
 
       airportnamefromurl = airportnamefromurl.replace(/-/g, ' ');
 
+
 // https://sitecore2-cd-test-site-westcentralus.azurewebsites.net/api/v1/Airports/GetAllAirports?airportname=
-      axios.get('https://www.alaskaair.com/api/v1/Airports/GetAllAirports?airportname='+airportnamefromurl)
+      axios.get(process.env.REACT_APP_MY_BASE_URL+airportnamefromurl)
       .then(res => {
         const mydata = res.data.airports;
 
@@ -123,8 +126,9 @@ class App extends Component{
         // })
 
         this.setState({
-            single_airport: mydata
-        },() => console.log(this.state.single_airport))
+            single_airport: mydata,
+            loading:false
+        })
 
       })
       .catch(function (error) {
@@ -167,7 +171,7 @@ class App extends Component{
                 <div className="row">
                   <div className="col-sm-8">
                     <div className="input-and-button">
-                      <label for="search-airport" className="sr-only">Search airport:</label>
+                      <label htmlFor="search-airport" className="sr-only">Search airport:</label>
 
                       <Autosuggest
                         suggestions={suggestions}
@@ -189,14 +193,27 @@ class App extends Component{
                   </div>
                 </div>
 
+                {
+                  this.state.loading ? (
 
+                      <div className="load-spinner row text-center">
+                        <img src="https://resource.alaskaair.net/-/media/B61CFC4462AA42E9936B8C0DEDEFC2C2" alt="spinner" />
+                        <p>Loading airport data</p>
+                      </div>
+
+                  ) : (
+                    <div></div>
+                  )
+                }
 
 
               {
                 this.state.single_airport.map((airport) => {
                   if(airport.airportcode !== '$name'){
                     return(
-                      <AirportGuide myairport={airport} />
+                      <div key={airport.airportcode}>
+                        <AirportGuide  myairport={airport} />
+                      </div>
                     )
                   }
 
