@@ -1,4 +1,6 @@
 import React from "react"
+import { replaceSpaceWithDashes} from '../helper/Helper';
+
 
 function Services (props){
 
@@ -67,8 +69,20 @@ function Services (props){
                         </div>
                     </div>
                     <div className="row" id="buttons-layer">
-                        <div className="col-sm-3"><a href="#" className="btn btn-ghost-blue form-control">Lounge Info </a></div>
-                        <div className="col-sm-3"><a href="#" className="btn btn-ghost-blue form-control">Cargo Info </a></div>
+                        {props.airport.alaskalounge === 'yes' || props.airport.partnerlounge === 'yes' ? (
+                          <div className="col-sm-3"><a href="/content/airport-lounge/location-and-hours" className="btn btn-ghost-blue form-control">Lounge Info </a></div>
+                        ) : (
+                          <div></div>
+                        )}
+
+
+                        {props.airport.hascargo === 'yes' ? (
+                          <div className="col-sm-3"><a href={`/content/cargo/city-information/${replaceSpaceWithDashes(props.airport.city)}`} className="btn btn-ghost-blue form-control">Cargo Info </a></div>
+                        ) : (
+                          <div></div>
+                        )}
+
+
                     </div>
 
             </div>
