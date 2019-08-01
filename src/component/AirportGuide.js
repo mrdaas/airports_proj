@@ -8,7 +8,10 @@ import WhenToArrive from "./WhenToArrive"
 import AdditionalNotes from "./AdditionalNotes"
 import Services from "./Services"
 import Accessibility from "./Accessibility"
+
 import CustomTwo from "./CustomTwo"
+
+
 
 
 import CheckInKiosks from "./CheckInKiosks"
@@ -34,12 +37,14 @@ function AirportGuide (props){
                       </div>
                     </div>
 
+
                     {/* CUSTOM 2 */}
                     <div className="row">
                       <div className="col-md-12 margin-bottom">
                         <CustomTwo airport={props.myairport}/>
                       </div>
                     </div>
+
 
 
                     {/* AIRPORT AND GATE LOCATION */}
@@ -90,6 +95,8 @@ function AirportGuide (props){
                         <AdditionalNotes airport={props.myairport} />
                       </div>
                     </div>
+
+                     
 
                     {/* CHECK IN OPTIONS */}
                     <div className="row">
