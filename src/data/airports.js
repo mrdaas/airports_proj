@@ -177,7 +177,7 @@ state: "alaska",
 airportname: "loreto international",
 city: "loreto",
 airportcode: "lto",
-state: "baja california sur",
+state: "baja california",
 },
 {
 airportname: "deadhorse",
